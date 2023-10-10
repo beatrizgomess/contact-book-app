@@ -7,9 +7,7 @@ import 'package:http/http.dart' as http;
 
 class ContactController implements ContactRepository {
   @override
-  List<ContactModel> ceps = [];
   var viaCepModel = ContactModel();
-  String _snackbarMessage = '';
 
   @override
   Future<List<ContactModel>> getContact() async {

@@ -43,6 +43,7 @@ class ContactModel {
     _name = json['name'];
     _phone = json['phone'];
     _email = json['email'];
+    _photo = json['photo'];
   }
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -50,6 +51,7 @@ class ContactModel {
     data['name'] = this._name;
     data['phone'] = this._phone;
     data['email'] = this._email;
+    data['photo'] = this._photo;
     return data;
   }
 }

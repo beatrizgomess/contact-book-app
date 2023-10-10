@@ -12,12 +12,14 @@ class TextFormFieldComponent extends StatelessWidget {
   TextEditingController controller;
   Icon icon;
   TextInputType keyboardType;
+  String? value;
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       controller: controller,
       keyboardType: keyboardType,
+      onChanged: (value) => value,
       decoration: InputDecoration(
         icon: icon,
         hintText: label,

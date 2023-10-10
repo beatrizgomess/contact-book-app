@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   var contactModel = ContactModel();
   var contactController = ContactController();
   var imageService = ImageService();
-  cropImage() {}
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -111,12 +111,14 @@ class _HomePageState extends State<HomePage> {
                       contactModel.photo = photo!.path;
                       contactController.createContact(contactModel);
                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ListContactsPage(
-                                    contactModel: contactModel,
-                                    photo: photo,
-                                  )));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ListContactsPage(
+                            contactModel: contactModel,
+                            photo: photo,
+                          ),
+                        ),
+                      );
                     },
                     child: const Text("Salvar")),
                 const SizedBox(height: 50),
