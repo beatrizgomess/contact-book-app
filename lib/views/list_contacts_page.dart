@@ -45,7 +45,7 @@ class _ListContactsPageState extends State<ListContactsPage> {
       body: FutureBuilder<List<ContactModel>>(
         future: contactController.getContact(),
         builder: (context, snapshot) {
-          if (!snapshot.hasData)
+          if (!snapshot.hasData) {
             return Center(
                 child: Column(
               children: [
@@ -62,7 +62,7 @@ class _ListContactsPageState extends State<ListContactsPage> {
                 )
               ],
             ));
-          else {
+          } else {
             List<ContactModel>? list = snapshot.data;
             return ListView.builder(
               itemCount: list!.length,
@@ -104,26 +104,118 @@ class _ListContactsPageState extends State<ListContactsPage> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 IconButton(
-                                    onPressed: () async {
-                                      await contactController
+                                    onPressed: () {
+                                      contactController
                                           .updateContact(list[index]);
                                       showModalBottomSheet(
                                         context: context,
                                         builder: (context) {
-                                          return Padding(
-                                            padding:
-                                                const EdgeInsets.only(top: 20),
-                                            child: SizedBox(
-                                              height: MediaQuery.of(context)
-                                                  .size
-                                                  .height,
-                                              width: MediaQuery.of(context)
-                                                  .size
-                                                  .width,
-                                              child:
-                                                  const SingleChildScrollView(
-                                                child: Column(
-                                                  children: [],
+                                          return Container(
+                                            width: MediaQuery.of(context)
+                                                .size
+                                                .width,
+                                            height: MediaQuery.of(context)
+                                                .size
+                                                .height,
+                                            child: SingleChildScrollView(
+                                              child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(18),
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    children: [
+                                                      TextFormField(
+                                                        controller:
+                                                            TextEditingController(
+                                                          text:
+                                                              list[index].name,
+                                                        ),
+                                                        decoration:
+                                                            InputDecoration(
+                                                          border: OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20)),
+                                                          labelText: 'Nome',
+                                                        ),
+                                                        onChanged: (value) {
+                                                          list[index].name =
+                                                              value;
+                                                        },
+                                                      ),
+                                                      SizedBox(height: 20),
+                                                      TextFormField(
+                                                        controller:
+                                                            TextEditingController(
+                                                          text:
+                                                              list[index].email,
+                                                        ),
+                                                        decoration:
+                                                            InputDecoration(
+                                                          border: OutlineInputBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          20)),
+                                                          labelText: 'Email',
+                                                        ),
+                                                        onChanged: (value) {
+                                                          list[index].email =
+                                                              value;
+                                                        },
+                                                      ),
+                                                      SizedBox(height: 20),
+                                                      TextFormField(
+                                                        controller:
+                                                            TextEditingController(
+                                                          text:
+                                                              list[index].phone,
+                                                        ),
+                                                        decoration: InputDecoration(
+                                                            labelText: 'Número',
+                                                            border: OutlineInputBorder(
+                                                                borderRadius:
+                                                                    BorderRadius
+                                                                        .circular(
+                                                                            20))),
+                                                        onChanged: (value) {
+                                                          list[index].phone =
+                                                              value;
+                                                        },
+                                                      ),
+                                                      Padding(
+                                                        padding:
+                                                            const EdgeInsets
+                                                                .only(top: 10),
+                                                        child: SizedBox(
+                                                          width: MediaQuery.of(
+                                                                  context)
+                                                              .size
+                                                              .width,
+                                                          child: ElevatedButton(
+                                                              style: ButtonStyle(
+                                                                  backgroundColor:
+                                                                      MaterialStatePropertyAll(
+                                                                          Colors
+                                                                              .amber)),
+                                                              onPressed: () {
+                                                                contactController
+                                                                    .updateContact(
+                                                                        list[
+                                                                            index]);
+                                                                setState(() {});
+                                                                Navigator.pop(
+                                                                    context);
+                                                              },
+                                                              child: Text(
+                                                                  "Editar")),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
                                                 ),
                                               ),
                                             ),

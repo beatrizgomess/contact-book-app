@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
 
-class TextFormFieldComponent extends StatelessWidget {
-  TextFormFieldComponent({
-    super.key,
-    required this.label,
-    required this.keyboardType,
-    required this.controller,
-    required this.icon,
-  });
+class TextFormFieldComponent extends StatefulWidget {
+  TextFormFieldComponent(
+      {super.key,
+      required this.label,
+      required this.keyboardType,
+      required this.controllerText,
+      required this.icon,
+      required this.value});
   String label;
-  TextEditingController controller;
   Icon icon;
   TextInputType keyboardType;
-  String? value;
+  String value;
+  String controllerText;
 
+  @override
+  State<TextFormFieldComponent> createState() => _TextFormFieldComponentState();
+}
+
+class _TextFormFieldComponentState extends State<TextFormFieldComponent> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
-      keyboardType: keyboardType,
-      onChanged: (value) => value,
+      controller: TextEditingController(text: widget.controllerText),
+      keyboardType: widget.keyboardType,
+      onChanged: (value) {
+        widget.value = value;
+      },
       decoration: InputDecoration(
-        icon: icon,
-        hintText: label,
+        icon: widget.icon,
+        hintText: widget.label,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue),
           gapPadding: 20,

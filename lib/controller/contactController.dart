@@ -62,14 +62,23 @@ class ContactController implements ContactRepository {
   @override
   Future<ContactModel> updateContact(ContactModel contactModel) async {
     try {
-      await http.put(
+      var response = await http.put(
         Uri.parse('${Constants.urlBack4app}/${contactModel.objectId}'),
         headers: Constants.headers,
-        body: jsonEncode(viaCepModel.toJson()),
+        body: jsonEncode(contactModel.toJson()),
       );
+
+      if (response.statusCode == 200) {
+        var body = response.body;
+        var json = jsonDecode(body);
+        return ContactModel.fromJson(json);
+      } else {
+        // Lida com um erro HTTP não esperado (por exemplo, 404, 500)
+        throw Exception('Erro na solicitação HTTP: ${response.statusCode}');
+      }
     } catch (e) {
-      throw Exception('Erro ao atualizar CEP: $e');
+      // Lida com exceções gerais, como erro de conexão
+      throw Exception('Erro ao atualizar contato: $e');
     }
-    return viaCepModel;
   }
 }
