@@ -62,7 +62,7 @@ class _HomeViewState extends State<HomeView> {
               icon: Icon(Icons.contact_phone_sharp), label: 'Contatos')
         ],
         onTap: (view) => pageController.animateToPage(view,
-            duration: Duration(milliseconds: 400), curve: Curves.ease),
+            duration: const Duration(milliseconds: 400), curve: Curves.ease),
       ),
     );
   }

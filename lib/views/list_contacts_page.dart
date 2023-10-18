@@ -25,6 +25,7 @@ class _ListContactsPageState extends State<ListContactsPage> {
   TextEditingController emailController = TextEditingController();
   var contactController = ContactController();
   var contacst = [];
+  List<ContactModel>? list = [];
   @override
   void initState() {
     getinfo();
@@ -65,18 +66,18 @@ class _ListContactsPageState extends State<ListContactsPage> {
           } else {
             List<ContactModel>? list = snapshot.data;
             return ListView.builder(
-              itemCount: list!.length,
+              itemCount: list!.length + 1,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(5),
-                  child: Container(
-                    width: 400,
-                    height: 150,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.amber,
-                    ),
-                    child: SingleChildScrollView(
+                if (index < list.length) {
+                  return Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: Container(
+                      width: 400,
+                      height: 160,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.amber,
+                      ),
                       child: Padding(
                         padding: const EdgeInsets.all(18),
                         child: Column(
@@ -87,7 +88,7 @@ class _ListContactsPageState extends State<ListContactsPage> {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                Container(
+                                SizedBox(
                                   width: 50,
                                   height: 50,
                                   child: Image.file(
@@ -237,8 +238,13 @@ class _ListContactsPageState extends State<ListContactsPage> {
                         ),
                       ),
                     ),
-                  ),
-                );
+                  );
+                } else {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 32),
+                    child: Center(child: CircularProgressIndicator()),
+                  );
+                }
               },
             );
           }
